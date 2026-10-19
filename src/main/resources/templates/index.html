@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:href="@{/assets/style.css}">
+<title>Kho sách | Library Project</title>
+</head>
+<body>
+<div class="topline">📚 LIBRARY PROJECT · KHÔNG GIAN TRI THỨC CỦA BẠN</div>
+<header>
+ <div class="head">
+  <a class="logo" th:href="@{/}">📚 LIBRARY<small>BOOKSTORE & LIBRARY</small></a>
+  <form class="search" id="searchForm">
+   <input id="searchInput" type="search" placeholder="Tìm tên sách, tác giả hoặc thể loại..." aria-label="Tìm sách">
+   <button type="submit" aria-label="Tìm kiếm">⌕</button>
+  </form>
+  <div class="account">
+   <a href="/"><b>⌂</b><span>Trang chủ</span></a>
+   <a href="/login"><b>♙</b><span>Tài khoản</span></a>
+  </div>
+ </div>
+ <nav>
+  <div class="nav">
+   <div class="nav-item"><a href="#trend">🔥 Xu hướng mua sắm</a></div>
+   <div class="nav-item"><a href="#categories">☰ Danh mục sách ▾</a>
+    <div class="dropdown">
+     <a href="#cat-vanhoc" data-category="Văn học">Văn học</a>
+     <a href="#cat-kinhte" data-category="Kinh tế - Kỹ năng">Kinh tế - Kỹ năng</a>
+     <a href="#cat-thieunhi" data-category="Thiếu nhi">Thiếu nhi</a>
+     <a href="#cat-giaokhoa" data-category="Giáo khoa - Tham khảo">Giáo khoa - Tham khảo</a>
+     <a href="#cat-ngoaivan" data-category="Ngoại văn">Ngoại văn</a>
+     <a href="#cat-truyentranh" data-category="Manga - Truyện tranh">Manga - Truyện tranh</a>
+     <a href="#cat-congnghe" data-category="Công nghệ - IT">Công nghệ - IT</a>
+    </div>
+   </div>
+   <div class="nav-item"><a href="#hot">📕 Sách HOT - Giảm sốc</a></div>
+   <div class="nav-item"><a href="#bestseller">🏆 Bestseller ngoại văn</a></div>
+   <div class="nav-item"><a href="#categories">📚 Tất cả thể loại</a></div>
+  </div>
+ </nav>
+</header>
+
+<main>
+ <div class="breadcrumb"><a href="/">Trang chủ</a>　›　Kho sách</div>
+ <section class="promo">
+  <div class="promo-copy"><span class="tag">KHO SÁCH LIBRARY PROJECT</span><h1>Mở sách hay,<br>mở ra thế giới mới</h1><p>Khám phá các thể loại sách nổi bật, sách bán chạy và những đầu sách phù hợp với sở thích của bạn.</p><a class="promo-btn" href="#categories">Khám phá danh mục ↓</a></div>
+  <div class="promo-art" aria-hidden="true"><div class="big-book">📗</div><div class="big-book">📚</div><div class="big-book">📘</div></div>
+ </section>
+
+ <section class="trend-panel" id="trend">
+  <div class="panel-title">📈 Xu Hướng Mua Sắm</div>
+  <div class="tabs" role="tablist">
+   <button class="tab active" data-shelf="daily">Xu Hướng Theo Ngày</button>
+   <button class="tab" data-shelf="hot">Sách HOT - Giảm Sốc</button>
+   <button class="tab" data-shelf="foreign">Bestseller Ngoại Văn</button>
+  </div>
+  <div class="shelf active" id="daily"><div class="book-grid">
+   <article class="product" data-category="Văn học"><span class="flag">Bán chạy 🔥</span><div class="cover"><div class="cover-art c1">XỨ SỞ<br>MIÊN MAN</div></div><h3>Xứ Sở Miên Man - Phiên Bản Đặc Biệt</h3><div class="price">145.000 đ</div><div class="old-price">180.000 đ <span class="discount">-19%</span></div><div class="sales"><span></span><em>Đang bán chạy</em></div></article>
+   <article class="product" data-category="Văn học"><span class="flag">Bán chạy 🔥</span><div class="cover"><div class="cover-art c2">BỘ SÁCH<br>DẤU ẤN</div></div><h3>Boxset Bộ Sách Dấu Ấn 10 Năm Omega+</h3><div class="price">359.000 đ</div><div class="old-price">399.000 đ <span class="discount">-10%</span></div><div class="sales"><span></span><em>Đã bán 32</em></div></article>
+   <article class="product" data-category="Manga - Truyện tranh"><span class="flag">HOT</span><div class="cover"><div class="cover-art c3">SOLO<br>LEVELING</div></div><h3>Combo Manhwa Solo Leveling - Tập nổi bật</h3><div class="price">357.200 đ</div><div class="old-price">376.000 đ <span class="discount">-5%</span></div><div class="sales"><span></span><em>Đã bán 149</em></div></article>
+   <article class="product" data-category="Văn học"><div class="cover"><div class="cover-art c4">SHERLOCK<br>HOLMES</div></div><h3>Boxset Sherlock Holmes Toàn Tập</h3><div class="price">1.090.000 đ</div><div class="old-price">1.210.000 đ <span class="discount">-9%</span></div><div class="sales"><span></span><em>Đã bán 73</em></div></article>
+   <article class="product" data-category="Giáo khoa - Tham khảo"><span class="flag">Xu hướng</span><div class="cover"><div class="cover-art c5">NEW<br>HSK 1</div></div><h3>Combo Giáo Trình New HSK 1 + Sổ Tay Học Tập</h3><div class="price">325.800 đ</div><div class="old-price">362.000 đ <span class="discount">-10%</span></div><div class="sales"><span></span><em>Sắp hết</em></div></article>
+  </div></div>
+  <div class="shelf" id="hot"><div class="book-grid">
+   <article class="product" data-category="Kinh tế - Kỹ năng"><span class="flag">Giảm sốc</span><div class="cover"><div class="cover-art c6">KỸ NĂNG<br>THÀNH CÔNG</div></div><h3>Kỹ Năng Tư Duy Và Phát Triển Bản Thân</h3><div class="price">89.000 đ</div><div class="old-price">129.000 đ <span class="discount">-31%</span></div><div class="sales"><span></span><em>Ưu đãi nổi bật</em></div></article>
+   <article class="product" data-category="Công nghệ - IT"><span class="flag">Giảm sốc</span><div class="cover"><div class="cover-art c7">LẬP TRÌNH<br>JAVA</div></div><h3>Nhập Môn Lập Trình Java Cho Người Mới</h3><div class="price">119.000 đ</div><div class="old-price">159.000 đ <span class="discount">-25%</span></div><div class="sales"><span></span><em>Ưu đãi nổi bật</em></div></article>
+   <article class="product" data-category="Thiếu nhi"><span class="flag">Giảm sốc</span><div class="cover"><div class="cover-art c9">THẾ GIỚI<br>CỔ TÍCH</div></div><h3>Tuyển Tập Truyện Cổ Tích Dành Cho Bé</h3><div class="price">59.000 đ</div><div class="old-price">79.000 đ <span class="discount">-25%</span></div><div class="sales"><span></span><em>Ưu đãi nổi bật</em></div></article>
+   <article class="product" data-category="Văn học"><span class="flag">Giảm sốc</span><div class="cover"><div class="cover-art c8">HỒ SƠ<br>BÍ ẨN</div></div><h3>Hồ Sơ Bí Ẩn - Tuyển Tập Trinh Thám</h3><div class="price">129.000 đ</div><div class="old-price">169.000 đ <span class="discount">-24%</span></div><div class="sales"><span></span><em>Ưu đãi nổi bật</em></div></article>
+   <article class="product" data-category="Kinh tế - Kỹ năng"><span class="flag">Giảm sốc</span><div class="cover"><div class="cover-art c10">TƯ DUY<br>TÀI CHÍNH</div></div><h3>Tư Duy Tài Chính Cá Nhân</h3><div class="price">99.000 đ</div><div class="old-price">139.000 đ <span class="discount">-29%</span></div><div class="sales"><span></span><em>Ưu đãi nổi bật</em></div></article>
+  </div></div>
+  <div class="shelf" id="foreign"><div class="book-grid">
+   <article class="product" data-category="Ngoại văn"><span class="flag">Bestseller</span><div class="cover"><div class="cover-art c4">THE<br>HOBBIT</div></div><h3>The Hobbit - Illustrated Edition</h3><div class="price">420.000 đ</div><div class="old-price">490.000 đ <span class="discount">-14%</span></div><div class="sales"><span></span><em>Top ngoại văn</em></div></article>
+   <article class="product" data-category="Ngoại văn"><span class="flag">Bestseller</span><div class="cover"><div class="cover-art c3">ATOMIC<br>HABITS</div></div><h3>Atomic Habits - English Edition</h3><div class="price">285.000 đ</div><div class="old-price">320.000 đ <span class="discount">-11%</span></div><div class="sales"><span></span><em>Top ngoại văn</em></div></article>
+   <article class="product" data-category="Ngoại văn"><span class="flag">Bestseller</span><div class="cover"><div class="cover-art c2">HARRY<br>POTTER</div></div><h3>Harry Potter - The Illustrated Collection</h3><div class="price">550.000 đ</div><div class="old-price">620.000 đ <span class="discount">-11%</span></div><div class="sales"><span></span><em>Top ngoại văn</em></div></article>
+   <article class="product" data-category="Ngoại văn"><span class="flag">Bestseller</span><div class="cover"><div class="cover-art c6">IKIGAI</div></div><h3>Ikigai - The Japanese Secret to a Long Life</h3><div class="price">199.000 đ</div><div class="old-price">239.000 đ <span class="discount">-17%</span></div><div class="sales"><span></span><em>Top ngoại văn</em></div></article>
+   <article class="product" data-category="Ngoại văn"><span class="flag">Bestseller</span><div class="cover"><div class="cover-art c7">ENGLISH<br>GRAMMAR</div></div><h3>Essential English Grammar - Student Book</h3><div class="price">175.000 đ</div><div class="old-price">205.000 đ <span class="discount">-15%</span></div><div class="sales"><span></span><em>Top ngoại văn</em></div></article>
+  </div></div>
+ </section>
+
+ <section class="category-panel" id="categories">
+  <div class="category-heading"><div><h2>☷ Danh mục sách</h2><p>Chọn thể loại để lọc các đầu sách tương ứng</p></div><span id="resultCount">Đang hiển thị tất cả sách</span></div>
+  <div class="category-list">
+   <button class="category selected" data-filter="all"><div class="cat-icon">📚</div><strong>Tất cả sách</strong><small>Hiển thị mọi thể loại</small></button>
+   <button class="category" id="cat-vanhoc" data-filter="Văn học"><div class="cat-icon">📖</div><strong>Văn học</strong><small>Tiểu thuyết, trinh thám</small></button>
+   <button class="category" id="cat-kinhte" data-filter="Kinh tế - Kỹ năng"><div class="cat-icon">📈</div><strong>Kinh tế - Kỹ năng</strong><small>Phát triển bản thân</small></button>
+   <button class="category" id="cat-thieunhi" data-filter="Thiếu nhi"><div class="cat-icon">🧸</div><strong>Thiếu nhi</strong><small>Truyện và sách bé</small></button>
+   <button class="category" id="cat-giaokhoa" data-filter="Giáo khoa - Tham khảo"><div class="cat-icon">🎓</div><strong>Giáo khoa</strong><small>Học tập, tham khảo</small></button>
+   <button class="category" id="cat-ngoaivan" data-filter="Ngoại văn"><div class="cat-icon">🌍</div><strong>Ngoại văn</strong><small>Sách tiếng nước ngoài</small></button>
+   <button class="category" id="cat-truyentranh" data-filter="Manga - Truyện tranh"><div class="cat-icon">🎨</div><strong>Manga - Truyện tranh</strong><small>Truyện tranh, manhwa</small></button>
+   <button class="category" id="cat-congnghe" data-filter="Công nghệ - IT"><div class="cat-icon">💻</div><strong>Công nghệ - IT</strong><small>Lập trình, máy tính</small></button>
+  </div>
+ </section>
+ <section class="category-panel" id="allBooks">
+  <div class="category-heading"><div><h2>📚 Tất cả đầu sách</h2><p>Các sách mẫu để minh họa giao diện danh mục</p></div><button id="clearFilter" class="promo-btn" style="border:0;cursor:pointer">Xóa bộ lọc</button></div>
+  <div class="shelf active" style="display:block"><div class="book-grid" id="allBookGrid">
+   <article class="product" data-category="Văn học"><div class="cover"><div class="cover-art c1">XỨ SỞ<br>MIÊN MAN</div></div><h3>Xứ Sở Miên Man</h3><div class="price">145.000 đ</div></article>
+   <article class="product" data-category="Văn học"><div class="cover"><div class="cover-art c4">SHERLOCK<br>HOLMES</div></div><h3>Sherlock Holmes Toàn Tập</h3><div class="price">1.090.000 đ</div></article>
+   <article class="product" data-category="Manga - Truyện tranh"><div class="cover"><div class="cover-art c3">SOLO<br>LEVELING</div></div><h3>Solo Leveling - Tuyển Tập</h3><div class="price">357.200 đ</div></article>
+   <article class="product" data-category="Giáo khoa - Tham khảo"><div class="cover"><div class="cover-art c5">NEW<br>HSK 1</div></div><h3>Giáo Trình New HSK 1</h3><div class="price">325.800 đ</div></article>
+   <article class="product" data-category="Kinh tế - Kỹ năng"><div class="cover"><div class="cover-art c6">KỸ NĂNG<br>THÀNH CÔNG</div></div><h3>Kỹ Năng Phát Triển Bản Thân</h3><div class="price">89.000 đ</div></article>
+   <article class="product" data-category="Công nghệ - IT"><div class="cover"><div class="cover-art c7">LẬP TRÌNH<br>JAVA</div></div><h3>Nhập Môn Lập Trình Java</h3><div class="price">119.000 đ</div></article>
+   <article class="product" data-category="Thiếu nhi"><div class="cover"><div class="cover-art c9">THẾ GIỚI<br>CỔ TÍCH</div></div><h3>Truyện Cổ Tích Cho Bé</h3><div class="price">59.000 đ</div></article>
+   <article class="product" data-category="Ngoại văn"><div class="cover"><div class="cover-art c10">ATOMIC<br>HABITS</div></div><h3>Atomic Habits - English Edition</h3><div class="price">285.000 đ</div></article>
+  </div></div>
+ </section>
+</main>
+<footer>© 2026 Library Project · Trang danh mục sách · Spring Boot & Thymeleaf</footer>
+<script>
+const tabs = document.querySelectorAll('.tab');
+tabs.forEach(tab => tab.addEventListener('click', () => {
+  tabs.forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.shelf').forEach(s => { if (s.id === 'daily' || s.id === 'hot' || s.id === 'foreign') s.classList.remove('active'); });
+  tab.classList.add('active');
+  document.getElementById(tab.dataset.shelf).classList.add('active');
+}));
+const categories = document.querySelectorAll('.category');
+const searchInput = document.getElementById('searchInput');
+let activeFilter = 'all';
+function applyFilters() {
+  const term = searchInput.value.trim().toLocaleLowerCase('vi');
+  let visible = 0;
+  document.querySelectorAll('#allBookGrid .product').forEach(card => {
+    const category = card.dataset.category || '';
+    const text = card.innerText.toLocaleLowerCase('vi');
+    const matchCategory = activeFilter === 'all' || category === activeFilter;
+    const matchText = !term || text.includes(term);
+    card.style.display = matchCategory && matchText ? '' : 'none';
+    if (matchCategory && matchText) visible++;
+  });
+  document.getElementById('resultCount').textContent = `Đang hiển thị ${visible} sách`;
+}
+categories.forEach(btn => btn.addEventListener('click', () => {
+  categories.forEach(c => c.classList.remove('selected'));
+  btn.classList.add('selected');
+  activeFilter = btn.dataset.filter;
+  applyFilters();
+  document.getElementById('allBooks').scrollIntoView({behavior:'smooth', block:'start'});
+}));
+document.querySelectorAll('.dropdown a[data-category]').forEach(link => link.addEventListener('click', () => {
+  const filter = link.dataset.category;
+  const button = [...categories].find(c => c.dataset.filter === filter);
+  if (button) button.click();
+}));
+document.getElementById('searchForm').addEventListener('submit', e => {
+  e.preventDefault();
+  applyFilters();
+  document.getElementById('allBooks').scrollIntoView({behavior:'smooth', block:'start'});
+});
+searchInput.addEventListener('input', applyFilters);
+document.getElementById('clearFilter').addEventListener('click', () => {
+  searchInput.value = '';
+  const all = [...categories].find(c => c.dataset.filter === 'all');
+  all.click();
+});
+applyFilters();
+</script>
+</body>
+</html>
