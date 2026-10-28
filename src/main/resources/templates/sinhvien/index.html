@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/app}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sinh viên</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+    <div class="content container-fluid">
+        <div th:if="${msg}" class="alert alert-soft-success" th:text="${msg}"></div>
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <h1 class="page-header-title">Quản lý sinh viên</h1>
+                </div>
+
+                <div class="col-sm-auto">
+                    <a class="btn btn-primary" th:href="@{/sinhvien/them}">
+                        <i class="tio-user-add mr-1"></i> Thêm sinh viên
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Header -->
+
+        <!-- Card -->
+        <div class="card">
+            <div class="table-responsive datatable-custom">
+				<table id="datatable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
+				                         "columnDefs": [{
+				                            "targets": [0, 8],
+				                            "orderable": false
+				                          }],
+				                         "order": [],
+				                         "info": {
+				                           "totalQty": "#datatableWithPaginationInfoTotalQty"
+				                         },
+				                         "search": "#datatableSearch",
+				                         "entries": "#datatableEntries",
+				                         "pageLength": 15,
+				                         "isResponsive": false,
+				                         "isShowPaging": false,
+				                         "pagination": "datatablePagination"
+				                       }'>
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Mã sinh viên</th>
+                        <th>Họ tên sinh viên</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="sv : ${listSinhVien}">
+                        <td>
+                            <span class="d-block h5 text-hover-primary mb-0" th:text="${sv.masv}"></span>
+                        </td>
+                        <td th:text="${sv.tensv}"></td>
+                        <td>
+                            <div>
+                                <a class="btn btn-sm btn-white" th:href="@{/sinhvien/sua/{id}(id=${sv.masv})}">
+                                    <i class="tio-edit"></i> Sửa
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- End Table -->
+        </div>
+        <!-- End Card -->
+    </div>
+    <!-- End Content -->
+
+    <script>
+        setTimeout(() => document.querySelectorAll('.alert-soft-success').forEach(e => e.remove()), 3000);
+    </script>
+</section>
+</body>
+</html>

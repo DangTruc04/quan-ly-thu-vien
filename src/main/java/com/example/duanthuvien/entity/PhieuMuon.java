@@ -17,10 +17,6 @@ public class PhieuMuon {
     @JoinColumn(name = "masv")
     private SinhVien sinhVien;
 
-    @ManyToOne
-    @JoinColumn(name = "idtk")
-    private TaiKhoan taiKhoan;
-
     public PhieuMuon() {}
 
     public Integer getMaphieumuon() { return maphieumuon; }
@@ -31,7 +27,4 @@ public class PhieuMuon {
 
     public SinhVien getSinhVien() { return sinhVien; }
     public void setSinhVien(SinhVien sinhVien) { this.sinhVien = sinhVien; }
-
-    public TaiKhoan getTaiKhoan() { return taiKhoan; }
-    public void setTaiKhoan(TaiKhoan taiKhoan) { this.taiKhoan = taiKhoan; }
 }

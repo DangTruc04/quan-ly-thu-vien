@@ -15,8 +15,6 @@ public class Sach {
 
     private Integer taiban;
     private Integer soluong;
-    private String nhaxuatban;
-    private String tacgia;
     private Integer trangthai;
 
     @ManyToOne
@@ -36,12 +34,6 @@ public class Sach {
 
     public Integer getSoluong() { return soluong; }
     public void setSoluong(Integer soluong) { this.soluong = soluong; }
-
-    public String getNhaxuatban() { return nhaxuatban; }
-    public void setNhaxuatban(String nhaxuatban) { this.nhaxuatban = nhaxuatban; }
-
-    public String getTacgia() { return tacgia; }
-    public void setTacgia(String tacgia) { this.tacgia = tacgia; }
 
     public Integer getTrangthai() { return trangthai; }
     public void setTrangthai(Integer trangthai) { this.trangthai = trangthai; }
