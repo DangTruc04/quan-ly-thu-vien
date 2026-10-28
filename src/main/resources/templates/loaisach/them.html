@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/app}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm loại sách</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <h1 class="page-header-title">Thêm loại sách</h1>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Header -->
+
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-8">
+                <!-- Card -->
+                <div class="card card-lg">
+                    <form th:action="@{/loaisach/them}" th:object="${loaiSach}" method="post">
+                        <!-- Body -->
+                        <div class="card-body">
+                            <!-- Thông báo lỗi -->
+                            <div th:if="${error}" class="alert alert-soft-danger" th:text="${error}"></div>
+
+                            <!-- Tên loại sách -->
+                            <div class="row form-group">
+                                <label for="tenloai" class="col-sm-3 col-form-label input-label">Tên loại sách</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="tenloai"
+                                           th:field="*{tenloai}" placeholder="Ví dụ: Văn học">
+                                </div>
+                            </div>
+                            <!-- End Form Group -->
+
+                            <!-- Trạng thái -->
+                            <div class="row form-group">
+                                <label class="col-sm-3 col-form-label input-label">Trạng thái</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group input-group-sm-down-break">
+                                        <div class="form-control">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="trangthai"
+                                                       value="1" id="ttHoatDong"
+                                                       th:checked="${loaiSach.trangthai == null or loaiSach.trangthai == 1}">
+                                                <label class="custom-control-label" for="ttHoatDong">Hoạt động</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-control">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="trangthai"
+                                                       value="0" id="ttKhoa"
+                                                       th:checked="${loaiSach.trangthai != null and loaiSach.trangthai == 0}">
+                                                <label class="custom-control-label" for="ttKhoa">Khóa</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Form Group -->
+                        </div>
+                        <!-- End Body -->
+
+                        <!-- Footer -->
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a class="btn btn-danger" th:href="@{/loaisach}">
+                                <i class="tio-chevron-left"></i> Trở về
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                Thêm <i class="tio-add"></i>
+                            </button>
+                        </div>
+                        <!-- End Footer -->
+                    </form>
+                </div>
+                <!-- End Card -->
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+</section>
+
+</body>
+</html>

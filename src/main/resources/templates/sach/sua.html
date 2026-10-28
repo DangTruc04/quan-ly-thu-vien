@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/app}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa sách</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <h1 class="page-header-title">Chỉnh sửa sách</h1>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Header -->
+
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-8">
+                <!-- Card -->
+                <div class="card card-lg">
+                    <form th:action="@{/sach/sua/{id}(id=${sach.masach})}"
+                          th:object="${sach}" method="post">
+                        <!-- Body -->
+                        <div class="card-body">
+                            <!-- Thông báo lỗi -->
+                            <div th:if="${error}" class="alert alert-soft-danger" th:text="${error}"></div>
+
+                            <!-- Mã sách -->
+                            <div class="row form-group">
+                                <label for="masach" class="col-sm-3 col-form-label input-label">Mã sách</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="masach" name="masach"
+                                           th:value="${sach.masach}" readonly>
+                                </div>
+                            </div>
+                            <!-- End Form Group -->
+
+                            <!-- Tên sách -->
+                            <div class="row form-group">
+                                <label for="tensach" class="col-sm-3 col-form-label input-label">Tên sách</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="tensach"
+                                           th:field="*{tensach}" placeholder="Ví dụ: Dế Mèn Phiêu Lưu Ký">
+                                </div>
+                            </div>
+                            <!-- End Form Group -->
+
+                            <!-- Tác giả -->
+                            <div class="row form-group">
+                                <label for="tacgia" class="col-sm-3 col-form-label input-label">Tác giả</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="tacgia"
+                                           th:field="*{tacgia}" placeholder="Ví dụ: Tô Hoài">
+                                </div>
+                            </div>
+                            <!-- End Form Group -->
+
+                            <!-- Nhà xuất bản -->
+                            <div class="row form-group">
+                                <label for="nhaxuatban" class="col-sm-3 col-form-label input-label">Nhà xuất bản</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="nhaxuatban"
+                                           th:field="*{nhaxuatban}" placeholder="Ví dụ: NXB Kim Đồng">
+                                </div>
+                            </div>
+                            <!-- End Form Group -->
+
+                            <!-- Loại sách -->
+                            <div class="row form-group">
+                                <label for="maloai" class="col-sm-3 col-form-label input-label">Loại sách</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" id="maloai" name="loaiSach.maloai">
+                                        <option value="">-- Chọn loại sách --</option>
+                                        <option th:each="l : ${listLoaiSach}"
+                                                th:value="${l.maloai}"
+                                                th:text="${l.tenloai}"
+                                                th:selected="${sach.loaiSach != null and sach.loaiSach.maloai == l.maloai}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- End Form Group -->
+
+                            <div class="row form-group">
+                                <!-- Tái bản -->
+                                <label for="taiban" class="col-sm-3 col-form-label input-label">Tái bản</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" id="taiban" min="1" step="1"
+                                           th:field="*{taiban}">
+                                </div>
+                            </div>
+                            <!-- End Form Group -->
+
+                            <div class="row form-group">
+                                <!-- Số lượng -->
+                                <label for="soluong" class="col-sm-3 col-form-label input-label">Số lượng</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" id="soluong" min="0" step="1"
+                                           th:field="*{soluong}">
+                                </div>
+                            </div>
+                            <!-- End Form Group -->
+
+                            <!-- Trạng thái -->
+                            <div class="row form-group">
+                                <label class="col-sm-3 col-form-label input-label">Trạng thái</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group input-group-sm-down-break">
+                                        <div class="form-control">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="trangthai"
+                                                       value="1" id="ttHoatDong"
+                                                       th:checked="${sach.trangthai != null and sach.trangthai == 1}">
+                                                <label class="custom-control-label" for="ttHoatDong">Hoạt động</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-control">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="trangthai"
+                                                       value="0" id="ttKhoa"
+                                                       th:checked="${sach.trangthai != null and sach.trangthai == 0}">
+                                                <label class="custom-control-label" for="ttKhoa">Khóa</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Form Group -->
+                        </div>
+                        <!-- End Body -->
+
+                        <!-- Footer -->
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <a class="btn btn-danger" th:href="@{/sach}">
+                                <i class="tio-chevron-left"></i> Trở về
+                            </a>
+
+                            <div class="d-flex align-items-center">
+                                <button type="submit" class="btn btn-danger mr-2"
+                                        th:formaction="@{/sach/xoa/{id}(id=${sach.masach})}"
+                                        formmethod="post"
+                                        onclick="return confirm('Bạn chắc chắn muốn xóa sách này?');">
+                                    Xóa <i class="tio-delete-outlined"></i>
+                                </button>
+
+                                <button type="submit" class="btn btn-primary">
+                                    Lưu <i class="tio-save"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- End Footer -->
+                    </form>
+                </div>
+                <!-- End Card -->
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+</section>
+
+</body>
+</html>

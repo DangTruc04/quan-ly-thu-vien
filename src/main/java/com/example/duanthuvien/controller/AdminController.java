@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AdminController {
@@ -30,15 +29,9 @@ public class AdminController {
         return "index";
     }
 
-    @GetMapping("/users")
-    public String users(Model model) {
-        model.addAttribute("listSinhVien", sinhVienService.getAllSinhVien());
-        return "users";
-    }
-
     @GetMapping("/add-product")
     public String addProduct(Model model) {
         model.addAttribute("sach", new Sach());
-        return "ecommerce-add-product";
+        return "taikhoan/sua";
     }
 }

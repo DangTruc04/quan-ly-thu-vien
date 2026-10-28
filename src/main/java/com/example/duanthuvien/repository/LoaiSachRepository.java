@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LoaiSachRepository extends JpaRepository<LoaiSach, Integer> {
+
+    boolean existsByTenloai(String tenloai);
+
+    boolean existsByTenloaiAndMaloaiNot(String tenloai, Integer maloai);
 }
