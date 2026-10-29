@@ -10,11 +10,11 @@ public class Sach {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer masach;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(255)")
     private String tensach;
 
-    private Integer taiban;
     private Integer soluong;
+    private Integer sachcon;
     private Integer trangthai;
 
     @ManyToOne
@@ -29,11 +29,11 @@ public class Sach {
     public String getTensach() { return tensach; }
     public void setTensach(String tensach) { this.tensach = tensach; }
 
-    public Integer getTaiban() { return taiban; }
-    public void setTaiban(Integer taiban) { this.taiban = taiban; }
-
     public Integer getSoluong() { return soluong; }
     public void setSoluong(Integer soluong) { this.soluong = soluong; }
+
+    public Integer getSachcon() { return sachcon; }
+    public void setSachcon(Integer sachcon) { this.sachcon = sachcon; }
 
     public Integer getTrangthai() { return trangthai; }
     public void setTrangthai(Integer trangthai) { this.trangthai = trangthai; }

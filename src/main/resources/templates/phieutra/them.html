@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/app}">
+<head><meta charset="UTF-8"><title>Tạo phiếu trả</title></head>
+<body>
+<section layout:fragment="content">
+    <div class="content container-fluid">
+        <div class="page-header"><h1 class="page-header-title">Tạo phiếu trả</h1></div>
+        <div class="row justify-content-lg-center"><div class="col-lg-8">
+            <form th:action="@{/phieutra/them}" method="post" class="card card-lg">
+                <div class="card-header"><h4 class="card-header-title">Thông tin phiếu trả</h4></div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="maphieumuon">Phiếu mượn</label>
+                        <select class="form-control" id="maphieumuon" name="maphieumuon" required>
+                            <option value="">-- Chọn phiếu mượn chưa trả --</option>
+                            <option th:each="pm : ${listPhieuMuon}" th:value="${pm.maphieumuon}"
+                                    th:selected="${selectedMaphieumuon != null and selectedMaphieumuon == pm.maphieumuon}"
+                                    th:text="${'Phiếu ' + pm.maphieumuon + ' - ' + (pm.sinhVien != null ? pm.sinhVien.tensv : '')}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ngayTra">Ngày trả</label>
+                        <input type="date" class="form-control" id="ngayTra" name="ngayTra"
+                               th:value="${ngayTra}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ghichu">Ghi chú</label>
+                        <textarea class="form-control" id="ghichu" name="ghichu" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a class="btn btn-light" th:href="@{/phieutra}">Quay lại</a>
+                    <button class="btn btn-primary" type="submit">Tạo phiếu trả</button>
+                </div>
+            </form>
+        </div></div>
+    </div>
+</section>
+</body>
+</html>

@@ -35,7 +35,6 @@ public class SachController {
     @GetMapping("/them")
     public String themSachForm(Model model) {
         Sach sach = new Sach();
-        sach.setTaiban(1);
         sach.setSoluong(0);
         sach.setTrangthai(1);
         model.addAttribute("sach", sach);
@@ -62,15 +61,13 @@ public class SachController {
         sach.setMasach(null);
         sach.setTensach(tenSach);
         sach.setLoaiSach(loaiSach);
-        if (sach.getTaiban() == null) {
-            sach.setTaiban(1);
-        }
         if (sach.getSoluong() == null) {
             sach.setSoluong(0);
         }
         if (sach.getTrangthai() == null) {
             sach.setTrangthai(1);
         }
+        sach.setSachcon(sach.getSoluong());
 
         sachService.save(sach);
         ra.addFlashAttribute("msg", "Đã thêm sách \"" + tenSach + "\" thành công!");
@@ -117,11 +114,13 @@ public class SachController {
         Sach existing = optionalSach.get();
         existing.setTensach(tenSach);
         existing.setLoaiSach(loaiSach);
-        if (sach.getTaiban() != null) {
-            existing.setTaiban(sach.getTaiban());
-        }
         if (sach.getSoluong() != null) {
+            int soLuongCu = existing.getSoluong() == null ? 0 : existing.getSoluong();
+            int sachConCu = existing.getSachcon() == null ? soLuongCu : existing.getSachcon();
+            int chenhLech = sach.getSoluong() - soLuongCu;
+
             existing.setSoluong(sach.getSoluong());
+            existing.setSachcon(Math.max(0, sachConCu + chenhLech));
         }
         if (sach.getTrangthai() != null) {
             existing.setTrangthai(sach.getTrangthai());
@@ -166,10 +165,6 @@ public class SachController {
         }
         if (loaiSach == null) {
             model.addAttribute("error", "Vui lòng chọn loại sách.");
-            return false;
-        }
-        if (sach.getTaiban() != null && sach.getTaiban() < 1) {
-            model.addAttribute("error", "Tái bản phải từ 1 trở lên.");
             return false;
         }
         if (sach.getSoluong() != null && sach.getSoluong() < 0) {

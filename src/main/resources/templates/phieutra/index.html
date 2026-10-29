@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/app}">
+<head><meta charset="UTF-8"><title>Quản lý phiếu trả</title></head>
+<body>
+<section layout:fragment="content">
+    <div class="content container-fluid">
+        <div th:if="${msg}" class="alert alert-soft-success" th:text="${msg}"></div>
+        <div th:if="${errorMsg}" class="alert alert-soft-danger" th:text="${errorMsg}"></div>
+        <div class="page-header d-flex justify-content-between align-items-center">
+            <h1 class="page-header-title">Quản lý phiếu trả</h1>
+            <a class="btn btn-primary" th:href="@{/phieutra/them}">Tạo phiếu trả</a>
+        </div>
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table table-lg table-borderless table-thead-bordered table-align-middle">
+                    <thead class="thead-light">
+                    <tr><th>Mã phiếu trả</th><th>Mã phiếu mượn</th><th>Sinh viên</th><th>Ngày trả</th><th>Ghi chú</th><th>Thao tác</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pt : ${listPhieuTra}">
+                        <td th:text="${pt.maphieutra}"></td>
+                        <td th:text="${pt.phieuMuon != null ? pt.phieuMuon.maphieumuon : ''}"></td>
+                        <td th:text="${pt.phieuMuon != null and pt.phieuMuon.sinhVien != null ? pt.phieuMuon.sinhVien.tensv : ''}"></td>
+                        <td th:text="${pt.ngaylap != null ? pt.ngaylap.format(T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy')) : ''}"></td>
+                        <td th:text="${pt.ghichu}"></td>
+                        <td class="text-nowrap">
+                            <a class="btn btn-sm btn-white" th:href="@{/phieutra/sua/{id}(id=${pt.maphieutra})}"><i class="tio-edit"></i>Sửa</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(listPhieuTra)}"><td colspan="6" class="text-center">Chưa có phiếu trả.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	<script>
+	        setTimeout(() => document.querySelectorAll('.alert-soft-success, .alert-soft-danger').forEach(e => e.remove()), 3000);
+	    </script>
+</section>
+</body>
+</html>
