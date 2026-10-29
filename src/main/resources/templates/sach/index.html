@@ -40,7 +40,7 @@
             <div class="table-responsive datatable-custom">
                 <table id="datatable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
                          "columnDefs": [{
-                            "targets": [0, 8],
+                            "targets": [0, 6],
                             "orderable": false
                           }],
                          "order": [],
@@ -59,7 +59,8 @@
                             <th>Mã sách</th>
                             <th>Tên sách</th>
                             <th>Loại sách</th>
-                            <th class="text-right">Số lượng</th>
+                            <th class="text-right">Tổng số lượng</th>
+                            <th class="text-center">Còn lại</th>
                             <th>Trạng thái</th>
                             <th></th>
                         </tr>
@@ -74,13 +75,22 @@
                             <td th:text="${s.tensach}"></td>
                             <td th:text="${s.loaiSach != null ? s.loaiSach.tenloai : ''}"></td>
                             <td class="text-center" th:text="${s.soluong}"></td>
+                            <td class="text-center">
+                                <span th:if="${s.sachcon != null and s.sachcon > 0}"
+                                      class="badge badge-soft-success" th:text="${s.sachcon}"></span>
+                                <span th:if="${s.sachcon == null or s.sachcon == 0}"
+                                      class="badge badge-soft-danger"
+                                      title="Sách đã hết, không thể cho mượn">
+                                    <i class="tio-warning-outlined mr-1"></i> Hết sách
+                                </span>
+                            </td>
                             <td>
                                 <span class="badge badge-soft-success" th:if="${s.trangthai == 1}">Hoạt động</span>
                                 <span class="badge badge-soft-danger" th:if="${s.trangthai == 0}">Khóa</span>
                             </td>
                             <td>
                                 <a class="btn btn-sm btn-white" th:href="@{/sach/sua/{id}(id=${s.masach})}">
-                                    <i class="tio-edit"></i> Edit
+                                    <i class="tio-edit"></i> Sửa
                                 </a>
                             </td>
                         </tr>

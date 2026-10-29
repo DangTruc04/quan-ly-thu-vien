@@ -55,26 +55,6 @@
                             </div>
                             <!-- End Form Group -->
 
-                            <!-- Tác giả -->
-                            <div class="row form-group">
-                                <label for="tacgia" class="col-sm-3 col-form-label input-label">Tác giả</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="tacgia"
-                                           th:field="*{tacgia}" placeholder="Ví dụ: Tô Hoài">
-                                </div>
-                            </div>
-                            <!-- End Form Group -->
-
-                            <!-- Nhà xuất bản -->
-                            <div class="row form-group">
-                                <label for="nhaxuatban" class="col-sm-3 col-form-label input-label">Nhà xuất bản</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="nhaxuatban"
-                                           th:field="*{nhaxuatban}" placeholder="Ví dụ: NXB Kim Đồng">
-                                </div>
-                            </div>
-                            <!-- End Form Group -->
-
                             <!-- Loại sách -->
                             <div class="row form-group">
                                 <label for="maloai" class="col-sm-3 col-form-label input-label">Loại sách</label>
@@ -91,18 +71,8 @@
                             <!-- End Form Group -->
 
                             <div class="row form-group">
-                                <!-- Tái bản -->
-                                <label for="taiban" class="col-sm-3 col-form-label input-label">Tái bản</label>
-                                <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="taiban" min="1" step="1"
-                                           th:field="*{taiban}">
-                                </div>
-                            </div>
-                            <!-- End Form Group -->
-
-                            <div class="row form-group">
-                                <!-- Số lượng -->
-                                <label for="soluong" class="col-sm-3 col-form-label input-label">Số lượng</label>
+                                <!-- Tổng số lượng -->
+                                <label for="soluong" class="col-sm-3 col-form-label input-label">Tổng số lượng</label>
                                 <div class="col-sm-9">
                                     <input type="number" class="form-control" id="soluong" min="0" step="1"
                                            th:field="*{soluong}">

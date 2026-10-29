@@ -11,7 +11,7 @@ public class LoaiSach {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer maloai;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(255)")
     private String tenloai;
 
     private Integer trangthai;

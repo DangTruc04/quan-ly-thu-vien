@@ -13,6 +13,9 @@ public class PhieuTra {
 
     private LocalDateTime ngaylap;
 
+    @Column(columnDefinition = "NVARCHAR(255)")
+    private String ghichu;
+
     @ManyToOne
     @JoinColumn(name = "maphieumuon")
     private PhieuMuon phieuMuon;
@@ -24,6 +27,9 @@ public class PhieuTra {
 
     public LocalDateTime getNgaylap() { return ngaylap; }
     public void setNgaylap(LocalDateTime ngaylap) { this.ngaylap = ngaylap; }
+
+    public String getGhichu() { return ghichu; }
+    public void setGhichu(String ghichu) { this.ghichu = ghichu; }
 
     public PhieuMuon getPhieuMuon() { return phieuMuon; }
     public void setPhieuMuon(PhieuMuon phieuMuon) { this.phieuMuon = phieuMuon; }

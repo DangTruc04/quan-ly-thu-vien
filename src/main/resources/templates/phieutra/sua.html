@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/app}">
+<head><meta charset="UTF-8"><title>Sửa phiếu trả</title></head>
+<body>
+<section layout:fragment="content">
+    <div class="content container-fluid">
+        <div class="page-header"><h1 class="page-header-title">Sửa phiếu trả</h1></div>
+        <div class="row justify-content-lg-center"><div class="col-lg-8">
+            <form method="post" th:action="@{/phieutra/sua/{id}(id=${phieuTra.maphieutra})}" class="card card-lg">
+                <div class="card-header"><h4 class="card-header-title">Thông tin phiếu trả</h4></div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Mã phiếu trả</label>
+                        <input class="form-control" th:value="${phieuTra.maphieutra}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Phiếu mượn</label>
+                        <input class="form-control" th:value="${phieuTra.phieuMuon.maphieumuon}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày trả</label>
+                        <input type="date" class="form-control" id="ngayTra" name="ngayTra"
+                               th:value="${ngayTra}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ghichu">Ghi chú</label>
+                        <textarea class="form-control" id="ghichu" name="ghichu" rows="3" th:text="${phieuTra.ghichu}"></textarea>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <a class="btn btn-danger" th:href="@{/phieutra}"><i class="tio-chevron-left"></i>Quay lại</a>
+					<div class="d-flex align-items-center">
+						<button type="submit" class="btn btn-danger mr-2"
+						        th:formaction="@{/phieutra/xoa/{id}(id=${phieuTra.maphieutra})}"
+						        formmethod="post"
+						        formnovalidate
+						        onclick="return confirm('Bạn chắc chắn muốn xóa phiếu trả này?');">
+						    Xóa <i class="tio-delete-outlined"></i>
+						</button>
+	                    <button class="btn btn-primary" type="submit">Lưu<i class="tio-save"></i></button>
+					</div>
+                </div>
+            </form>
+        </div></div>
+    </div>
+</section>
+</body>
+</html>

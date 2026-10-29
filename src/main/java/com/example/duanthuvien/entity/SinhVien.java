@@ -11,7 +11,7 @@ public class SinhVien {
     @Column(name = "masv")
     private Integer masv;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(255)")
     private String tensv;
 
     @OneToMany(mappedBy = "sinhVien", cascade = CascadeType.ALL, orphanRemoval = true)

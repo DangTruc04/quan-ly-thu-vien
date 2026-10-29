@@ -22,6 +22,11 @@ public class SachService {
         return sachRepository.findAll();
     }
 
+    /** Chỉ những sách còn số lượng mới được chọn khi lập phiếu mượn. */
+    public List<Sach> getSachCoTheMuon() {
+        return sachRepository.findBySachconGreaterThan(0);
+    }
+
     public long countSach() {
         return sachRepository.count();
     }
@@ -31,6 +36,9 @@ public class SachService {
     }
 
     public Sach save(Sach sach) {
+        if (sach.getSachcon() == null) {
+            sach.setSachcon(sach.getSoluong() == null ? 0 : sach.getSoluong());
+        }
         return sachRepository.save(sach);
     }
 

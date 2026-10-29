@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/app}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm phiếu mượn</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <h1 class="page-header-title">Thêm phiếu mượn</h1>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Header -->
+
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-10">
+                <form th:action="@{/phieumuon/them}" th:object="${phieuMuon}" method="post">
+                    <!-- Thông tin phiếu mượn -->
+                    <div class="card card-lg mb-4">
+                        <div class="card-header">
+                            <h4 class="card-header-title">Thông tin phiếu mượn</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <!-- Hiển thị thông báo lỗi nếu có -->
+                            <div th:if="${error}" class="alert alert-soft-danger" th:text="${error}"></div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="sinhVien">Sinh viên <span class="text-danger">*</span></label>
+                                        <select class="form-control" id="sinhVien" name="sinhVien.masv">
+                                            <option value="">-- Chọn sinh viên --</option>
+                                            <option th:each="sv : ${listSinhVien}"
+                                                    th:value="${sv.masv}"
+                                                    th:text="${sv.masv + ' - ' + sv.tensv}"
+                                                    th:selected="${phieuMuon.sinhVien != null and phieuMuon.sinhVien.masv == sv.masv}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="ngaylap">Ngày lập <span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" id="ngaylap"
+                                               th:field="*{ngaylap}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="form-text text-muted mb-0">
+                                        Hạn trả được tính sau ngày mượn 14 ngày.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Danh sách sách mượn -->
+                    <div class="card card-lg mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-header-title mb-0">Sách mượn</h4>
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="btnAddRow">
+                                <i class="tio-add"></i> Thêm sách
+                            </button>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-borderless table-thead-bordered table-align-middle">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th style="width: 60%">Sách</th>
+                                        <th style="width: 25%">Số lượng</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="chiTietBody">
+                                    <tr th:each="ct, stat : ${phieuMuon.chiTietPhieuMuons}">
+                                        <td>
+                                            <select class="form-control"
+                                                    th:name="|chiTietPhieuMuons[${stat.index}].sach.masach|">
+                                                <option value="">-- Chọn sách --</option>
+                                                <option th:each="s : ${listSach}"
+                                                        th:value="${s.masach}"
+                                                        th:text="${s.tensach}"
+                                                        th:selected="${ct.sach != null and ct.sach.masach == s.masach}"></option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control text-center"
+                                                   min="1" step="1"
+                                                   th:name="|chiTietPhieuMuons[${stat.index}].soluongmuon|"
+                                                   th:value="${ct.soluongmuon}">
+                                        </td>
+                                        <td class="text-right">
+                                                <button type="button" class="btn btn-sm btn-white js-remove-row"
+                                                     title="Xóa dòng">
+                                                <i class="tio-delete-outlined"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <a class="btn btn-danger" th:href="@{/phieumuon}">
+                            <i class="tio-chevron-left"></i> Trở về
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            Thêm <i class="tio-add"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+
+    <!-- Template danh sách sách dùng cho nút Thêm dòng -->
+    <select id="sachOptionsTemplate" style="display: none">
+        <option value="">-- Chọn sách --</option>
+        <option th:each="s : ${listSach}"
+                th:value="${s.masach}"
+                th:text="${s.tensach}"></option>
+    </select>
+
+    <!-- JavaScript thêm, xóa dòng và đánh lại số thứ tự cho đúng dữ liệu gửi lên -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const body = document.getElementById('chiTietBody');
+            const sachOptions = document.getElementById('sachOptionsTemplate').innerHTML;
+
+            document.getElementById('btnAddRow').addEventListener('click', function () {
+                const index = body.querySelectorAll('tr').length;
+                body.insertAdjacentHTML('beforeend', `
+                <tr>
+                    <td>
+                        <select class="form-control" name="chiTietPhieuMuons[${index}].sach.masach">
+                            ${sachOptions}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control text-center"
+                               min="1" step="1" value="1"
+                               name="chiTietPhieuMuons[${index}].soluongmuon">
+                    </td>
+                    <td class="text-right">
+                            <button type="button" class="btn btn-sm btn-white js-remove-row"
+                                title="Xóa dòng">
+                            <i class="tio-delete-outlined"></i>
+                        </button>
+                    </td>
+                </tr>`);
+            });
+
+            body.addEventListener('click', function (event) {
+                if (!event.target.closest('.js-remove-row')) return;
+
+                event.target.closest('tr').remove();
+                body.querySelectorAll('tr').forEach(function (row, index) {
+                    row.querySelectorAll('[name]').forEach(function (input) {
+                        input.name = input.name.replace(/chiTietPhieuMuons\[\d+\]/,
+                            'chiTietPhieuMuons[' + index + ']');
+                    });
+                });
+            });
+        });
+    </script>
+</section>
+
+</body>
+</html>
