@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${sach.masach != null ? 'Sửa Sách' : 'Thêm Sách Mới'}">Form Sách</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-book-open me-2"></i>Thư Viện
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/"><i class="fas fa-home me-1"></i>Trang Chủ</a>
+                <a class="nav-link" href="/admin/sach"><i class="fas fa-book me-1"></i>Sách</a>
+                <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt me-1"></i>Đăng Xuất</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-book me-2"></i>
+                            <span th:text="${sach.masach != null ? 'Sửa Sách' : 'Thêm Sách Mới'}">Form</span>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/admin/sach/save}" method="post" th:object="${sach}" enctype="multipart/form-data">
+                            <input type="hidden" th:field="*{masach}" th:if="${sach.masach != null}">
+                            
+                            <div class="mb-3">
+                                <label for="tensach" class="form-label">
+                                    <i class="fas fa-book me-2"></i>Tiêu Đề Sách
+                                </label>
+                                <input type="text" class="form-control" id="tensach" th:field="*{tensach}" required placeholder="Nhập tiêu đề sách">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="maloai" class="form-label">
+                                        <i class="fas fa-tags me-2"></i>Loại Sách
+                                    </label>
+                                    <select class="form-select" id="maloai" name="maloai" required>
+                                        <option value="">-- Chọn Loại Sách --</option>
+                                        <option th:each="loai : ${loaiSachs}" 
+                                                th:value="${loai.maloai}"
+                                                th:text="${loai.tenloai}"
+                                                th:selected="${sach.loaiSach?.maloai == loai.maloai}">Loại</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="tacgiaId" class="form-label">
+                                        <i class="fas fa-user me-2"></i>Tác Giả
+                                    </label>
+                                    <select class="form-select" id="tacgiaId" name="tacgiaId">
+                                        <option value="">-- Chọn Tác Giả --</option>
+                                        <option th:each="author : ${authors}" 
+                                                th:value="${author.id}"
+                                                th:text="${author.name}"
+                                                th:selected="${sach.author?.id == author.id}">Tác giả</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="gia" class="form-label">
+                                        <i class="fas fa-money-bill me-2"></i>Giá (VNĐ)
+                                    </label>
+                                    <input type="number" class="form-control" id="gia" th:field="*{gia}" min="0" step="1000" placeholder="Nhập giá sách">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="soluong" class="form-label">
+                                        <i class="fas fa-cubes me-2"></i>Số Lượng
+                                    </label>
+                                    <input type="number" class="form-control" id="soluong" th:field="*{soluong}" min="0" required placeholder="Nhập số lượng">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="taiban" class="form-label">
+                                        <i class="fas fa-redo me-2"></i>Tái Bản
+                                    </label>
+                                    <input type="number" class="form-control" id="taiban" th:field="*{taiban}" min="0" placeholder="Số lần tái bản">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="trangthai" class="form-label">
+                                        <i class="fas fa-info-circle me-2"></i>Trạng Thái
+                                    </label>
+                                    <select class="form-select" id="trangthai" th:field="*{trangthai}">
+                                        <option value="Available">Có Sách</option>
+                                        <option value="Unavailable">Hết Sách</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="imageFile" class="form-label">
+                                    <i class="fas fa-upload me-2"></i>Upload Ảnh Sách
+                                </label>
+                                <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*">
+                                <div class="form-text text-muted" th:if="${sach.imageUrl}">
+                                    Ảnh hiện tại: <span th:text="${sach.imageUrl}">URL</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="imageUrl" class="form-label">
+                                    <i class="fas fa-link me-2"></i>Hoặc Nhập URL Ảnh
+                                </label>
+                                <input type="text" class="form-control" id="imageUrl" th:field="*{imageUrl}" 
+                                       placeholder="https://example.com/image.jpg">
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-borrow">
+                                    <i class="fas fa-save me-2"></i>Lưu Sách
+                                </button>
+                                <a href="/admin/sach" class="btn btn-secondary">
+                                    <i class="fas fa-times me-2"></i>Hủy
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

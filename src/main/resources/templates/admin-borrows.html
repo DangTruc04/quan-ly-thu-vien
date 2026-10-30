@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tất Cả Phiếu Mượn - Thư Viện Online</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-book-open me-2"></i>Thư Viện Online
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/"><i class="fas fa-home me-1"></i>Trang Chủ</a>
+                <a class="nav-link" href="/my-borrows"><i class="fas fa-book-reader me-1"></i>Phiếu Mượn Của Tôi</a>
+                <a class="nav-link active" href="/admin/borrows"><i class="fas fa-list me-1"></i>Tất Cả Phiếu</a>
+                <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt me-1"></i>Đăng Xuất</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2 class="section-title">
+            <i class="fas fa-list me-2"></i>Tất Cả Phiếu Mượn
+        </h2>
+        <div th:if="${borrows.empty}" class="alert alert-info shadow">
+            <i class="fas fa-info-circle me-2"></i>Chưa có phiếu mượn nào.
+        </div>
+        <div class="card shadow" th:if="${!borrows.empty}">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th><i class="fas fa-user me-2"></i>Người Mượn</th>
+                                <th><i class="fas fa-book me-2"></i>Sách</th>
+                                <th><i class="fas fa-calendar me-2"></i>Ngày Mượn</th>
+                                <th><i class="fas fa-clock me-2"></i>Hạn Trả</th>
+                                <th><i class="fas fa-calendar-check me-2"></i>Ngày Trả</th>
+                                <th><i class="fas fa-info-circle me-2"></i>Trạng Thái</th>
+                                <th><i class="fas fa-cog me-2"></i>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="borrow : ${borrows}">
+                                <td>
+                                    <div>
+                                        <strong th:text="${borrow.user.fullName}">User Name</strong>
+                                        <br>
+                                        <small class="text-muted" th:text="${borrow.user.username}">Username</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img th:src="${borrow.book.imageUrl ?: 'https://via.placeholder.com/50x75?text=Book'}" 
+                                             class="rounded me-2" alt="Book" style="width: 50px; height: 75px; object-fit: cover;">
+                                        <div>
+                                            <strong th:text="${borrow.book.title}">Book Title</strong>
+                                            <br>
+                                            <small class="text-muted" th:text="${borrow.book.author?.name}">Author</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td th:text="${borrow.borrowDate}">Borrow Date</td>
+                                <td th:text="${borrow.dueDate}">Due Date</td>
+                                <td th:text="${borrow.returnDate ?: '-'}">Return Date</td>
+                                <td>
+                                    <span class="badge bg-warning" th:if="${borrow.status == 'BORROWED'}">
+                                        <i class="fas fa-clock me-1"></i>Đang Mượn
+                                    </span>
+                                    <span class="badge bg-success" th:if="${borrow.status == 'RETURNED'}">
+                                        <i class="fas fa-check me-1"></i>Đã Trả
+                                    </span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/return/{id}(id=${borrow.id})}" 
+                                       class="btn btn-sm btn-success"
+                                       th:if="${borrow.status == 'BORROWED'}">
+                                        <i class="fas fa-undo me-1"></i>Xác Nhận Trả
+                                    </a>
+                                    <span class="text-muted" th:if="${borrow.status == 'RETURNED'}">
+                                        <i class="fas fa-check-circle me-1"></i>Đã trả
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
